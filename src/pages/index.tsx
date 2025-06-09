@@ -106,7 +106,7 @@ export default function PhoenixLogin() {
               FÉNIX
             </h1>
             <p className="text-orange-200 text-sm font-medium tracking-wider">
-              RENACE DESDE LAS CENIZAS
+             
             </p>
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function PhoenixLogin() {
           <div className="relative z-10">
             {/* Form Title */}
             <h2 className="text-2xl font-bold text-white text-center mb-8">
-              Despertar del Fénix
+              INGRESA LAS CREDENCIALES
             </h2>
 
             {/* DNI/Usuario Input */}
@@ -187,7 +187,7 @@ export default function PhoenixLogin() {
                 </div>
               </div>
               <label className="ml-3 text-white font-medium cursor-pointer group-hover:text-orange-300 transition-colors">
-                Soy Guardián del Fénix (Admin)
+                Soy fenixero (Admin)
               </label>
             </div>
 
@@ -199,18 +199,13 @@ export default function PhoenixLogin() {
             >
               <span className="relative z-10 flex items-center justify-center">
                 <Flame className="mr-2 group-hover:animate-bounce" size={20} />
-                {isLoading ? 'Renaciendo...' : 'Despertar del Fénix'}
+                {isLoading ? 'Renaciendo...' : 'INGRESAR'}
                 <Flame className="ml-2 group-hover:animate-bounce" size={20} />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
 
-            {/* Demo Credentials */}
-            <div className="mt-6 text-center text-xs text-orange-200/80">
-              <p className="mb-1">🔥 Credenciales Demo:</p>
-              <p>Empleado: dni="empleado", password="123456"</p>
-              <p>Admin: dni="admin", password="admin123"</p>
-            </div>
+            
           </div>
         </div>
 

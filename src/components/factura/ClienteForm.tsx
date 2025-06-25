@@ -1,8 +1,16 @@
-// components/factura/ClienteForm.tsx
-import { Building2 } from 'lucide-react'
 import { MONTO_MINIMO_DATOS_CLIENTE } from '@/types/facturaTypes'
 
-export default function ClienteForm({ cliente, tipo, setCliente, setTipo, cuitCliente, setCuitCliente, domicilioCliente, setDomicilioCliente, total }: any) {
+export default function ClienteForm({
+  cliente,
+  tipo,
+  setCliente,
+  setTipo,
+  cuitCliente,
+  setCuitCliente,
+  domicilioCliente,
+  setDomicilioCliente,
+  total,
+}: any) {
   const requiresClientData = () => tipo === 'final' && total >= MONTO_MINIMO_DATOS_CLIENTE
 
   return (
@@ -23,29 +31,16 @@ export default function ClienteForm({ cliente, tipo, setCliente, setTipo, cuitCl
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Tipo de Consumidor</label>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Tipo de Documento</label>
           <select
             className="w-full px-4 py-3 border rounded-xl"
             value={tipo}
             onChange={(e) => setTipo(e.target.value)}
           >
             <option value="final">Consumidor Final</option>
-           
+            <option value="presupuesto">Presupuesto</option>
           </select>
         </div>
-
-        {tipo === 'responsable_inscripto' && (
-          <>
-            <div>
-              <label className="block text-sm font-medium">CUIT</label>
-              <input type="text" className="w-full px-4 py-3 border rounded-xl" value={cuitCliente} onChange={(e) => setCuitCliente(e.target.value)} />
-            </div>
-            <div>
-              <label className="block text-sm font-medium">Domicilio</label>
-              <input type="text" className="w-full px-4 py-3 border rounded-xl" value={domicilioCliente} onChange={(e) => setDomicilioCliente(e.target.value)} />
-            </div>
-          </>
-        )}
 
         {requiresClientData() && (
           <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">

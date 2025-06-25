@@ -12,6 +12,7 @@ export type DatosEmpresa = {
   condicionIva: string
   inicioActividades: string
   puntoVenta: string
+  telefono: string
 }
 
 export const DATOS_EMPRESA: DatosEmpresa = {
@@ -20,7 +21,8 @@ export const DATOS_EMPRESA: DatosEmpresa = {
   domicilio: "Banda de Rio Sali",
   condicionIva: "Responsable Inscripto",
   inicioActividades: "01/01/2020",
-  puntoVenta: "0001"
+  puntoVenta: "0001",
+  telefono:"391"
 }
 
 export const MONTO_MINIMO_DATOS_CLIENTE = 417288

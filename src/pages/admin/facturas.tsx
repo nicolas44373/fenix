@@ -16,6 +16,9 @@ export default function FacturasPage() {
   const [showSuccess, setShowSuccess] = useState(false)
   const [facturaGuardada, setFacturaGuardada] = useState<any | null>(null)
   const [facturasAnteriores, setFacturasAnteriores] = useState<any[]>([])
+  const [tipo, setTipo] = useState<'final' | 'presupuesto'>('final')
+  const [cuitCliente, setCuitCliente] = useState('')
+  const [domicilioCliente, setDomicilioCliente] = useState('')
 
   const total = items.reduce((acc, item) => acc + item.cantidad * item.precio_unitario, 0)
   const tipoFactura = 'B'
@@ -33,6 +36,9 @@ export default function FacturasPage() {
   const resetForm = () => {
     setCliente('')
     setItems([{ descripcion: '', cantidad: 1, precio_unitario: 0 }])
+    setTipo('final')
+    setCuitCliente('')
+    setDomicilioCliente('')
   }
 
   const descargarFactura = async () => {
@@ -57,6 +63,11 @@ export default function FacturasPage() {
   }
 
   const guardarFactura = async () => {
+    if (tipo === 'presupuesto') {
+      alert('Este documento es un presupuesto y no será guardado en la base de datos.')
+      return
+    }
+
     setIsLoading(true)
     try {
       const numeroFactura = generarNumeroFactura()
@@ -95,6 +106,38 @@ export default function FacturasPage() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const generarPresupuestoPDF = async () => {
+    const fecha = new Date().toLocaleDateString('es-AR')
+
+    const htmlPresupuesto = generarFacturaHTML({
+      numeroFactura: 'PRESUPUESTO',
+      fecha,
+      cliente,
+      tipoFactura: 'B',
+      tipoDocumento: 'presupuesto',
+      items,
+      subtotal,
+      iva,
+      total,
+    })
+
+    const element = document.createElement('div')
+    element.innerHTML = htmlPresupuesto
+
+    const { default: html2pdf } = await import('html2pdf.js')
+
+    html2pdf()
+      .set({
+        margin: 0.5,
+        filename: `Presupuesto_${cliente || 'cliente'}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      })
+      .from(element)
+      .save()
   }
 
   const descargarFacturaAnterior = async (factura: any) => {
@@ -157,7 +200,17 @@ export default function FacturasPage() {
 
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-6">
-              <ClienteForm {...{ cliente, setCliente, total }} />
+              <ClienteForm
+                cliente={cliente}
+                setCliente={setCliente}
+                tipo={tipo}
+                setTipo={setTipo}
+                cuitCliente={cuitCliente}
+                setCuitCliente={setCuitCliente}
+                domicilioCliente={domicilioCliente}
+                setDomicilioCliente={setDomicilioCliente}
+                total={total}
+              />
               <ItemsFactura items={items} setItems={setItems} />
             </div>
             <ResumenFactura
@@ -174,6 +227,15 @@ export default function FacturasPage() {
                 lastFacturaId: facturaGuardada?.numeroFactura,
               }}
             />
+
+            <div className="col-span-3 flex justify-end">
+              <button
+                onClick={generarPresupuestoPDF}
+                className="mt-4 bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg shadow transition"
+              >
+                Generar Presupuesto
+              </button>
+            </div>
           </div>
 
           {facturasAnteriores.length > 0 && (

@@ -14,7 +14,7 @@ type MotorConEmpleado = {
   } | null
 }
 
-export function MotoresPorEmpleado() {
+export default function MotoresPorEmpleado() {
   const [motores, setMotores] = useState<MotorConEmpleado[]>([])
   const [loading, setLoading] = useState(true)
 

@@ -11,7 +11,7 @@ interface Motor {
   estado: string | null
 }
 
-export function Notificaciones() {
+export default function Notificaciones() {
   const [notificaciones, setNotificaciones] = useState<Motor[]>([])
   const [loading, setLoading] = useState(true)
 

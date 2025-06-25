@@ -6,8 +6,9 @@ import { Loader } from 'lucide-react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts'
 import { format } from 'date-fns'
 import AdminLayout from '@/components/AdminLayout'
-import { MotoresPorEmpleado } from '@/pages/admin/MotoresPorEmpleado'
-import { Notificaciones } from '@/pages/admin/Notificaciones'
+import MotoresPorEmpleado from '@/pages/admin/MotoresPorEmpleado'
+import Notificaciones     from '@/pages/admin/Notificaciones'
+
 
 interface Empleado {
   id: string
